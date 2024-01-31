@@ -1,2 +1,2 @@
-# mslearn-ai-services.de-de
-German repo
+# mslearn-ai-services
+Lab-Dateien für Azure KI Services-Module
