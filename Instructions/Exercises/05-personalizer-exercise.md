@@ -2,9 +2,7 @@
 lab:
   title: Verwenden von KI Personalisierung mit Visual Studio Code-Notebooks zum Simulieren einer Schleife
 ---
-> **Wichtig** Seit Herbst 2023 können keine neuen Personalisierung-Ressourcen mehr erstellt werden.
-
-> **Hinweis** Um diese Übung abzuschließen, werden Sie ein [Azure-Abonnement](https://azure.microsoft.com/free?azure-portal=true) benötigen.
+> **Wichtig** Seit Herbst 2023 können keine neuen Personalisierung-Ressourcen mehr erstellt werden. Verwenden Sie dieses Repository nur zur Referenz, wenn Sie bereits über eine Personalisierungsressource verfügen.
 
 In dieser Übung verwenden Sie Azure KI Personalisierung mit Notebooks in Visual Studio Code, um eine Lernschleife zu simulieren.
 

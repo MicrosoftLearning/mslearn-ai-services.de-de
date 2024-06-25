@@ -23,8 +23,6 @@ Sie entwickeln Ihren Code mittels Visual Studio Code. Die Codedateien für Ihre 
 
 5. Erweitern Sie den Ordner `Labfiles/03-monitor-ai-services`.
 
-Code sowohl für C# als auch Python wurde bereitgestellt. Erweitern Sie den Ordner Ihrer bevorzugten Sprache.
-
 ## Bereitstellen einer Azure KI Services-Ressource
 
 Wenn Sie noch keine in Ihrem Abonnement haben, müssen Sie eine **Azure KI Services**-Ressource bereitstellen.

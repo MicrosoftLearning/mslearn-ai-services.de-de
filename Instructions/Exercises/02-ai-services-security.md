@@ -68,7 +68,7 @@ Beim Erstellen Ihrer Azure KI Services-Ressource wurden zwei Authentifizierungss
 4. Speichern Sie Ihre Änderungen und führen dann den folgenden Befehl aus:
 
     ```
-    sh rest-test.sh
+    ./rest-test.cmd
     ```
 
 Der Befehl gibt ein JSON-Dokument zurück, das Informationen über die in den Eingabedaten erkannte Sprache enthält (dies sollte Englisch sein).
