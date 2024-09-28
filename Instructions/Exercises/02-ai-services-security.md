@@ -43,13 +43,16 @@ Wenn Sie noch keine in Ihrem Abonnement haben, müssen Sie eine **Azure KI Servi
 
 ## Verwalten von Authentifizierungsschlüsseln
 
-Beim Erstellen Ihrer Azure KI Services-Ressource wurden zwei Authentifizierungsschlüssel generiert. Sie können diese im Azure-Portal oder über die Azure-Befehlszeilenschnittstelle (CLI) verwalten.
+Beim Erstellen Ihrer Azure KI Services-Ressource wurden zwei Authentifizierungsschlüssel generiert. Sie können diese im Azure-Portal oder über die Azure-Befehlszeilenschnittstelle (CLI) verwalten. 
 
-1. Gehen Sie im Azure-Portal zu Ihrer Azure KI Services-Ressource, und rufen Sie die Seite **Schlüssel und Endpunkt** auf. Diese Seite enthält die Informationen, die Sie benötigen, um eine Verbindung zu Ihrer Ressource herzustellen und sie aus den von Ihnen entwickelten Anwendungen zu nutzen. Dies betrifft insbesondere:
+1. Wählen Sie eine Methode zum Abrufen von Authentifizierungsschlüsseln und Endpunkten aus: 
+
+    **Verwendung des Azure-Portals**: Gehen Sie im Azure-Portal zu Ihrer Azure KI-Services-Ressource und rufen Sie die Seite **Schlüssel und Endpunkt** auf. Diese Seite enthält die Informationen, die Sie benötigen, um eine Verbindung zu Ihrer Ressource herzustellen und sie aus den von Ihnen entwickelten Anwendungen zu nutzen. Dies betrifft insbesondere:
     - Ein HTTP-*Endpunkt*, an den Clientanwendungen Anforderungen senden können.
     - Zwei *Schlüssel*, die für die Authentifizierung verwendet werden können (Clientanwendungen können einen der beiden Schlüssel verwenden. Eine gängige Methode besteht darin, einen für die Entwicklung und einen anderen für die Produktion zu verwenden. Sie können den Entwicklungsschlüssel einfach neu generieren, nachdem die Entwickler ihre Arbeit beendet haben, um weiteren Zugriff zu verhindern).
     - Der *Standort*, an dem die Ressource gehostet wird. Dies ist für Anforderungen an einige (aber nicht alle) APIs erforderlich.
-2. Jetzt können Sie den folgenden Befehl verwenden, um die Liste der Azure KI Services-Schlüssel abzurufen. Ersetzen Sie dabei *&lt;resourceName&gt;* durch den Namen Ihrer Azure KI Services-Ressource und *&lt;resourceGroup&gt;* durch den Namen der Ressourcengruppe, in der Sie sie erstellt haben.
+
+    **Verwendung der Befehlszeile**: Alternativ können Sie den folgenden Befehl verwenden, um die Liste der Azure KI Services-Schlüssel abzurufen. Öffnen Sie in Visual Studio Code ein neues Terminal. Fügen Sie dann den folgenden Befehl ein und ersetzen Sie *&lt;resourceName&gt;* durch den Namen Ihrer Azure KI Services-Ressource und *&lt;resourceGroup&gt;* durch den Namen der Ressourcengruppe, in der Sie sie erstellt haben.
 
     ```
     az cognitiveservices account keys list --name <resourceName> --resource-group <resourceGroup>
@@ -57,15 +60,15 @@ Beim Erstellen Ihrer Azure KI Services-Ressource wurden zwei Authentifizierungss
 
     Der Befehl gibt eine Liste der Schlüssel für Ihre Azure KI Services-Ressource zurück – es gibt zwei Schlüssel, **key1** und **key2**.
 
-    > **Tipp**: Wenn Sie Azure CLI noch nicht authentifiziert haben, führen Sie `az login` aus, und melden Sie sich bei Ihrem Konto an.
+    > **Tipp**: Wenn Sie Azure CLI noch nicht authentifiziert haben, führen Sie zunächst `az login` aus und melden Sie sich bei Ihrem Konto an.
 
-3. Um Ihren Azure KI-Dienst zu testen, können Sie **curl** verwenden – ein Befehlszeilentool für HTTP-Anfragen. Öffnen Sie im Ordner **02-ai-cognitive-security** die Datei **rest-test.cmd**, und bearbeiten Sie den darin enthaltenen Befehl **curl** (unten angezeigt). Ersetzen Sie dabei *&lt;yourEndpoint&gt;* und *&lt;yourKey&gt;* durch Ihren Endpunkt-URI und den Schlüssel **Key1**, um die API „Text analysieren“ in Ihrer Azure KI Services-Ressource zu verwenden.
+2. Um Ihren Azure KI-Dienst zu testen, können Sie **curl** verwenden – ein Befehlszeilentool für HTTP-Anfragen. Öffnen Sie im Ordner **02-ai-cognitive-security** die Datei **rest-test.cmd**, und bearbeiten Sie den darin enthaltenen Befehl **curl** (unten angezeigt). Ersetzen Sie dabei *&lt;yourEndpoint&gt;* und *&lt;yourKey&gt;* durch Ihren Endpunkt-URI und den Schlüssel **Key1**, um die API „Text analysieren“ in Ihrer Azure KI Services-Ressource zu verwenden.
 
     ```bash
-    curl -X POST "<yourEndpoint>/language/:analyze-text?api-version=2023-04-01" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: 81468b6728294aab99c489664a818197" --data-ascii "{'analysisInput':{'documents':[{'id':1,'text':'hello'}]}, 'kind': 'LanguageDetection'}"
+    curl -X POST "<yourEndpoint>/language/:analyze-text?api-version=2023-04-01" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <your-key>" --data-ascii "{'analysisInput':{'documents':[{'id':1,'text':'hello'}]}, 'kind': 'LanguageDetection'}"
     ```
 
-4. Speichern Sie Ihre Änderungen und führen dann den folgenden Befehl aus:
+3. Speichern Sie die Änderungen. Navigieren Sie im Terminal zum Ordner „02-ai-services-security“. (**Hinweis**: Klicken Sie dazu mit der rechten Maustaste auf den Ordner „02-ai-services-security“ in Ihrem Explorer und wählen Sie *In integriertem Terminal öffnen* aus.) Führen Sie dann den folgenden Befehl aus:
 
     ```
     ./rest-test.cmd
@@ -73,7 +76,7 @@ Beim Erstellen Ihrer Azure KI Services-Ressource wurden zwei Authentifizierungss
 
 Der Befehl gibt ein JSON-Dokument zurück, das Informationen über die in den Eingabedaten erkannte Sprache enthält (dies sollte Englisch sein).
 
-5. Wenn ein Schlüssel kompromittiert wird oder die Entwickler, die ihn besitzen, keinen Zugriff mehr benötigen, können Sie ihn im Portal oder über die Azure CLI neu generieren. Führen Sie den folgenden Befehl aus, um Ihren Schlüssel **key1** neu zu generieren (wobei Sie *&lt;resourceName&gt;* und *&lt;resourceGroup&gt;* für Ihre Ressource ersetzen).
+4. Wenn ein Schlüssel kompromittiert wird oder die Entwickler, die ihn besitzen, keinen Zugriff mehr benötigen, können Sie ihn im Portal oder über die Azure CLI neu generieren. Führen Sie den folgenden Befehl aus, um Ihren Schlüssel **key1** neu zu generieren (wobei Sie *&lt;resourceName&gt;* und *&lt;resourceGroup&gt;* für Ihre Ressource ersetzen).
 
     ```
     az cognitiveservices account keys regenerate --name <resourceName> --resource-group <resourceGroup> --key-name key1
@@ -81,8 +84,8 @@ Der Befehl gibt ein JSON-Dokument zurück, das Informationen über die in den Ei
 
 Sie erhalten die Liste der Schlüssel für Ihre Azure KI Services-Ressource. Beachten Sie, dass sich **key1** seit dem letzten Abruf geändert hat.
 
-6. Führen Sie den Befehl **rest-test** mit dem alten Schlüssel erneut aus (Sie können den Pfeil **^** auf Ihrer Tastatur verwenden, um die vorherigen Befehle zu durchblättern) und überprüfen Sie, dass jetzt ein Fehler auftritt.
-7. Bearbeiten Sie den Befehl *curl* in **rest-test.cmd**, indem Sie den Schlüssel durch den neuen **key1**-Wert ersetzen, und speichern Sie die Änderungen. Führen Sie dann den Befehl **rest-test** erneut aus und überprüfen Sie, ob er erfolgreich ausgeführt wurde.
+5. Führen Sie den Befehl **rest-test** mit dem alten Schlüssel erneut aus (Sie können den Pfeil **^** auf Ihrer Tastatur verwenden, um die vorherigen Befehle zu durchblättern) und überprüfen Sie, dass jetzt ein Fehler auftritt.
+6. Bearbeiten Sie den Befehl *curl* in **rest-test.cmd**, indem Sie den Schlüssel durch den neuen **key1**-Wert ersetzen, und speichern Sie die Änderungen. Führen Sie dann den Befehl **rest-test** erneut aus und überprüfen Sie, ob er erfolgreich ausgeführt wurde.
 
 > **Tipp**: In dieser Übung haben Sie die vollständigen Namen der Azure CLI-Parameter verwendet, z. B. **--resource-group**.  Sie können auch kürzere Alternativen wie **-g** verwenden, um Ihre Befehle weniger ausführlich zu gestalten (aber etwas schwieriger zu verstehen).  Die [Azure KI Services-CLI-Befehlsreferenz](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest) listet die Parameteroptionen für jeden Azure KI Services-CLI-Befehl auf.
 
@@ -113,7 +116,7 @@ Zunächst müssen Sie einen Schlüsseltresor erstellen und ein *Geheimnis* für 
 5. Wählen Sie **+ Generieren/Importieren** aus, und fügen Sie ein neues Geheimnis mit den folgenden Einstellungen hinzu:
     - **Uploadoptionen**: Manuell.
     - **Name:** AI-Services-Key *(es ist wichtig, dass dies genau übereinstimmt, da Sie später Code ausführen werden, der das Geheimnis basierend auf diesem Namen abruft)*
-    - **Wert**: *Ihr **key1** Azure KI Services-Schlüssel*
+    - **Geheimer Wert**: *Ihr Azure KI Services-Schlüssel **key1***
 6. Klicken Sie auf **Erstellen**.
 
 ### Erstellen eines Dienstprinzipals
@@ -167,16 +170,16 @@ Jetzt können Sie die Dienstprinzipalidentität in einer Anwendung verwenden, so
 
     ```
     dotnet add package Azure.AI.TextAnalytics --version 5.3.0
-    dotnet add package Azure.Identity --version 1.5.0
-    dotnet add package Azure.Security.KeyVault.Secrets --version 4.2.0-beta.3
+    dotnet add package Azure.Identity --version 1.12.0
+    dotnet add package Azure.Security.KeyVault.Secrets --version 4.6.0
     ```
 
     **Python**
 
     ```
     pip install azure-ai-textanalytics==5.3.0
-    pip install azure-identity==1.5.0
-    pip install azure-keyvault-secrets==4.2.0
+    pip install azure-identity==1.17.1
+    pip install azure-keyvault-secrets==4.8.0
     ```
 
 3. Zeigen Sie den Inhalt des Ordners **keyvault-client** an, und beachten Sie, dass er eine Datei für Konfigurationseinstellungen enthält:
