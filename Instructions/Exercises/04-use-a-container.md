@@ -42,9 +42,9 @@ Wenn Sie noch keine in Ihrem Abonnement haben, müssen Sie eine **Azure KI Servi
 4. Warten Sie, bis die Bereitstellung abgeschlossen ist, und zeigen Sie dann die Bereitstellungsdetails an.
 5. Wenn die Ressource bereitgestellt wurde, wechseln Sie zu ihr, und zeigen Sie ihre Seite **Schlüssel und Endpunkt** an. Sie benötigen den Endpunkt und einen der Schlüssel von dieser Seite im nächsten Verfahren.
 
-## Bereitstellen und Ausführen eines Textanalyse-Containers
+## Bereitstellen und Ausführen eines Stimmungsanalyse-Containers
 
-Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügbar. Eine vollständige Liste finden Sie in der [Dokumentation zu Azure KI Services](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services). In dieser Übung verwenden Sie das Containerimage für die *Sprachenerkennungs*-API der Textanalyse, aber die Prinzipien sind für alle verfügbaren Images identisch.
+Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügbar. Eine vollständige Liste finden Sie in der [Dokumentation zu Azure KI Services](https://learn.microsoft.com/en-us/azure/ai-services/cognitive-services-container-support#containers-in-azure-ai-services). In dieser Übung verwenden Sie das Containerimage für die *Stimmungsanalyse*-API der Textanalyse, aber die Prinzipien sind für alle verfügbaren Images identisch.
 
 1. Wählen Sie im Azure-Portal auf der Seite **Start** die Schaltfläche **&#65291;Ressource erstellen** aus, suchen Sie nach *Container Instances*, und erstellen Sie eine **Container Instances**-Ressource mit den folgenden Einstellungen:
 
@@ -53,11 +53,13 @@ Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügb
         - **Ressourcengruppe**: *Wählen Sie die Ressourcengruppe aus, die Ihre Azure KI Services-Ressource enthält.*
         - **Containername**: *Geben Sie einen eindeutigen Namen ein.*
         - **Region**: *Wählen Sie eine beliebige verfügbare Region aus*.
+        - **Verfügbarkeitszonen:** Keine
+        - **SKU**: Standard
         - **Imagequelle:** Andere Registrierung
         - **Imagetyp**: Öffentlich
-        - **Image**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest`
+        - **Image**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:latest`
         - **Betriebssystemtyp**: Linux
-        - **Größe**: 1 vcpu, 12 GB Arbeitsspeicher
+        - **Größe**: 1 vCPU, 8 GB Arbeitsspeicher
     - **Netzwerk**:
         - **Netzwerktyp**: Öffentlich
         - **DNS-Namensbezeichnung**: *Geben Sie einen eindeutigen Namen für den Containerendpunkt ein.*
@@ -73,6 +75,7 @@ Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügb
             | Nein | `Eula` | `accept` |
 
         - **Außerkraftsetzung von Befehl**: [ ]
+        - **Schlüsselverwaltung**: Von Microsoft verwaltete Schlüssel (MMK)
     - **Tags**:
         - *Fügen Sie keine Tags hinzu.*
 
@@ -83,11 +86,11 @@ Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügb
     - **IP-Adresse**: Dies ist die öffentliche IP-Adresse, die Sie für den Zugriff auf Ihre Containerinstanzen verwenden können.
     - **FQDN**: Dies ist der *vollqualifizierte Domänenname* der Container Instances-Ressource. Sie können diesen anstelle der IP-Adresse verwenden, um auf die Containerinstanzen zuzugreifen.
 
-    > **Hinweis**: In dieser Übung haben Sie das Azure KI Services-Containerimage für die Textübersetzung in einer Azure Container Instances (ACI)-Ressource bereitgestellt. Sie können einen ähnlichen Ansatz verwenden, um es auf einem *[Docker](https://www.docker.com/products/docker-desktop)*-Host auf Ihrem eigenen Computer oder im eigenen Netzwerk bereitzustellen, indem Sie den folgenden Befehl (in einer einzigen Zeile) ausführen, um den Sprachenerkennungscontainer in Ihrer lokalen Docker-Instanz bereitzustellen. Ersetzen Sie dabei *&lt;yourEndpoint&gt;* und *&lt;yourKey&gt;* durch Ihren Endpunkt-URI und einen der Schlüssel für Ihre Azure KI Services-Ressource.
+    > **Hinweis**: In dieser Übung haben Sie das Azure KI Services-Containerimage für die Stimmungsanalyse in einer Azure Container Instances (ACI)-Ressource bereitgestellt. Sie können einen ähnlichen Ansatz verwenden, um es auf einem *[Docker](https://www.docker.com/products/docker-desktop)*-Host auf Ihrem eigenen Computer oder im eigenen Netzwerk bereitzustellen, indem Sie den folgenden Befehl (in einer einzigen Zeile) ausführen, um den Stimmungsanalyse-Container in Ihrer lokalen Docker-Instanz bereitzustellen. Ersetzen Sie dabei *&lt;yourEndpoint&gt;* und *&lt;yourKey&gt;* durch Ihren Endpunkt-URI und einen der Schlüssel für Ihre Azure KI Services-Ressource.
     > Der Befehl sucht nach dem Image auf Ihrem lokalen Computer, und wenn er ihn dort nicht findet, wird er aus der Imageregistrierung *mcr.microsoft.com* abgerufen und in Ihrer Docker-Instanz bereitgestellt. Nach Abschluss der Bereitstellung startet der Container und lauscht auf eingehende Anforderungen an Port 5000.
 
     ```
-    docker run --rm -it -p 5000:5000 --memory 12g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
+    docker run --rm -it -p 5000:5000 --memory 8g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:latest Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
     ```
 
 ## Verwenden des Containers
@@ -95,7 +98,7 @@ Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügb
 1. Öffnen Sie in Ihrem Editor **rest-test.cmd**, und bearbeiten Sie den darin enthaltenen Befehl **curl** (unten angezeigt). Ersetzen Sie dabei *&lt;your_ACI_IP_address_or_FQDN&gt;* durch die IP-Adresse oder den FQDN für Ihren Container.
 
     ```
-    curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.0/languages" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'Hello world.'},{'id':2,'text':'Salut tout le monde.'}]}"
+    curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.1/sentiment" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'The performance was amazing! The sound could have been clearer.'},{'id':2,'text':'The food and service were unacceptable. While the host was nice, the waiter was rude and food was cold.'}]}"
     ```
 
 2. Speichern Sie Ihre Änderungen im Skript, indem Sie **STRG+S** drücken. Beachten Sie, dass Sie weder den Endpunkt noch den Schlüssel von Azure KI Services angeben müssen. Die Anforderung wird vom containerisierten Dienst verarbeitet. Der Container kommuniziert wiederum regelmäßig mit dem Dienst in Azure, um die Nutzung für die Abrechnung zu melden, sendet aber keine Anforderungsdaten.
@@ -105,7 +108,7 @@ Viele häufig verwendete Azure KI Services-APIs sind in Containerimages verfügb
     ./rest-test.cmd
     ```
 
-4. Vergewissern Sie sich, dass der Befehl ein JSON-Dokument zurückgibt, das Informationen über die in den beiden Eingabedokumenten erkannte Sprache enthält (dies sollten Englisch und Französisch sein).
+4. Überprüfen Sie, ob der Befehl ein JSON-Dokument mit Informationen über die in den beiden Eingabedokumenten erkannte Stimmung zurückgibt (die positiv und negativ sein sollte, in dieser Reihenfolge).
 
 ## Bereinigen
 
