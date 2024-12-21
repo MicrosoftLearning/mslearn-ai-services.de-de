@@ -10,8 +10,6 @@ Die Verwendung von in Azure gehosteten Azure KI Services ermöglicht es Anwendun
 
 Viele der Azure KI Services-APIs können in einem *Container* verpackt und bereitgestellt werden, sodass Organisationen die Azure KI Services in ihrer eigenen Infrastruktur hosten können, z. B. in lokalen Docker-Servern, Azure Container-Instanzen oder Azure Kubernetes Services-Clustern. Containerisierte Azure KI-Dienste müssen mit einem Azure-basierten Azure KI Services-Konto kommunizieren, um die Abrechnung zu unterstützen. Die Anwendungsdaten werden jedoch nicht an den Back-End-Dienst weitergegeben, und Organisationen haben eine größere Kontrolle über die Bereitstellungskonfiguration ihrer Container, sodass benutzerdefinierte Lösungen für Authentifizierung, Skalierbarkeit und andere Überlegungen möglich sind.
 
-> **Hinweis:** Es wird derzeit ein Problem untersucht, das verursacht, dass Container bei einigen Benutzer*innen nicht ordnungsgemäß bereitgestellt werden und Aufrufe dieser Container fehlschlagen. Updates zu diesem Lab erfolgen, sobald das Problem behoben wurde.
-
 ## Klonen des Repositorys in Visual Studio Code
 
 Sie entwickeln Ihren Code mittels Visual Studio Code. Die Codedateien für Ihre App wurden in einem GitHub-Repository bereitgestellt.
