@@ -29,7 +29,7 @@ Wenn noch nicht geschehen, müssen Sie eine **Inhaltssicherheits**-Ressource in 
 
 ## Verwenden von Prompt Shields in Azure KI Inhaltssicherheit
 
-In dieser Übung nutzen Sie Azure KI Studio, um Inhaltssicherheits-Prompt Shields mit zwei Beispieleingaben zu testen. Die eine simuliert eine Benutzeraufforderung, und die andere simuliert ein Dokument mit eingebettetem potenziell unsicheren Text.
+In dieser Übung werden Sie Azure AI Studio verwenden, um Content Safety Prompt Shields mit zwei Beispieleingaben zu testen. Die eine simuliert eine Benutzeraufforderung, und die andere simuliert ein Dokument mit eingebettetem potenziell unsicheren Text.
 
 1. Öffnen Sie auf einer anderen Browserregisterkarte die Inhaltssicherheits-Seite von [Azure KI Studio](https://ai.azure.com/explore/contentsafety), und melden Sie sich an.
 1. Wählen Sie unter **Moderater Textinhalt** die Option **Ausprobieren** aus.
