@@ -30,7 +30,7 @@ Code sowohl für C# als auch Python wurde bereitgestellt. Erweitern Sie den Ordn
 Azure KI Services sind cloudbasierte Dienste, die KI-Funktionen kapseln, die Sie in Ihre Anwendungen integrieren können. Sie können einzelne Azure KI Services-Ressourcen für bestimmte APIs bereitstellen (z. B. **Language** oder **Vision**). Sie können auch eine einzelne **Azure KI Services**-Ressource bereitstellen, die über einen einzelnen Endpunkt und Schlüssel Zugriff auf mehrere Azure KI Services-APIs bietet. In diesem Fall verwenden Sie eine einzelne **Azure KI Services**-Ressource.
 
 1. Öffnen Sie das Azure-Portal unter `https://portal.azure.com`, und melden Sie sich mit dem Microsoft-Konto an, das Ihrem Azure-Abonnement zugeordnet ist.
-2. Suchen Sie in der oberen Suchleiste nach *Azure KI Services*, wählen Sie **Azure KI Services** aus und erstellen Sie eine Azure KI Services Multi-Service-Kontoressource mit den folgenden Einstellungen:
+2. Suchen Sie in der oberen Suchleiste nach *Azure KI Services*, wählen Sie **Azure KI Services Multi-Service-Konto** aus und erstellen Sie eine Ressource mit den folgenden Einstellungen:
     - **Abonnement:** *Geben Sie Ihr Azure-Abonnement an.*
     - **Ressourcengruppe**: *Wählen Sie eine Ressourcengruppe aus, oder erstellen Sie eine Ressourcengruppe (wenn Sie eine gehostete Lab-Umgebung verwenden, sind Sie möglicherweise nicht berechtigt, eine neue Ressourcengruppe zu erstellen, verwenden Sie dann die bereitgestellte Ressourcengruppe).*
     - **Region**: *Wählen Sie eine beliebige verfügbare Region aus*.
