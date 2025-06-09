@@ -1,13 +1,17 @@
 ---
-title: Azure KI Services-Übungen
+title: Erste Schritte mit Azure KI Services
 permalink: index.html
 layout: home
 ---
 
-# Azure KI Services-Übungen
+Die folgenden Übungen sind darauf ausgelegt, Ihnen eine praktische Lernerfahrung zu bieten, in der Sie allgemeine Aufgaben erkunden, die Entwickler und Entwicklerinnen beim Erstellen von generativen KI-Lösungen in Microsoft Azure ausführen.
 
-Die folgenden Übungen sind eine Ergänzung für die Module in Microsoft Learn.
+> **Hinweis**: Um die Übungen durchführen zu können, benötigen Sie ein Azure-Abonnement, das Ihnen ausreichende Berechtigungen und Kontingente für die Bereitstellung der erforderlichen Azure-Ressourcen und generativen KI-Modelle bietet. Wenn Sie noch kein Konto haben, können Sie sich für ein [Azure-Konto](https://azure.microsoft.com/free) anmelden. Für neue Benutzende gibt es dort eine kostenlose Testoption, die Guthaben für die ersten 30 Tage beinhaltet.
 
+## Übungen
 
-{% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %} {% for activity in labs %} {% unless activity.url contains 'ai-foundry' %}
-- [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }}) {% endunless %} {% endfor %}
+{% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %} {% for activity in labs  %}
+<hr>
+### [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }}) {{activity.lab.description}} {% endfor %}
+
+> **Hinweis**: Diese Übungen können zwar eigenständig absolviert werden, sie sind jedoch als Ergänzung zu den Modulen auf [Microsoft Learn](https://learn.microsoft.com/training/paths/get-started-azure-ai/) gedacht, in denen Sie tiefer in einige der zugrunde liegenden Konzepte eintauchen können, auf denen diese Übungen basieren.
