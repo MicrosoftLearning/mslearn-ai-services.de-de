@@ -1,4 +1,6 @@
-# Entwicklung generativer KI-Lösungen in Azure
+# Entwickeln von KI-Lösungen in Azure
+
+> **HINWEIS:** Dieses Repository wird archiviert und nicht mehr verwaltet. Rufen Sie den Lernpfad [generative KI-Apps](https://learn.microsoft.com/en-us/training/paths/create-custom-copilots-ai-studio/) und das [zugeordnete Lab-Repository](https://github.com/MicrosoftLearning/mslearn-ai-studio) oder die [Azure AI Foundry-Dokumentation](https://learn.microsoft.com/en-us/azure/ai-foundry/) auf.
 
 Die Übungen in diesem Repository sollen Ihnen eine praktische Lernerfahrung bieten, in der Sie häufige Aufgaben erkunden, die Entwickler beim Aufbau generativer KI-Lösungen auf Microsoft Azure durchführen.
 

@@ -97,6 +97,9 @@ Sie können Anwendungen entwickeln, die Azure KI Services nutzen, indem Sie eine
 
 Zunächst müssen Sie einen Schlüsseltresor erstellen und ein *Geheimnis* für den Azure KI Services-Schlüssel hinzufügen.
 
+Wählen Sie eine Methode zum Erstellen eines Schlüsseltresors und zum Hinzufügen eines geheimen Schlüssels aus:
+
+#### Verwenden des Azure-Portals
 1. Notieren Sie sich den **key1**-Wert für Ihre Azure KI Services-Ressource (oder kopieren Sie ihn in die Zwischenablage).
 2. Wählen Sie im Azure-Portal auf der Seite **Start** die Schaltfläche **&#65291;Ressource erstellen** aus, suchen Sie nach *Key Vault*, und erstellen Sie eine **Key Vault**-Ressource mit den folgenden Einstellungen:
 
@@ -118,6 +121,33 @@ Zunächst müssen Sie einen Schlüsseltresor erstellen und ein *Geheimnis* für 
     - **Name:** AI-Services-Key *(es ist wichtig, dass dies genau übereinstimmt, da Sie später Code ausführen werden, der das Geheimnis basierend auf diesem Namen abruft)*
     - **Geheimer Wert**: *Ihr Azure KI Services-Schlüssel **key1***
 6. Klicken Sie auf **Erstellen**.
+
+#### Verwenden der Azure CLI
+Alternativ können Sie Azure CLI verwenden, um einen Schlüsseltresor zu erstellen und einen geheimen Schlüssel hinzuzufügen.
+
+1. Öffnen Sie in Visual Studio Code ein Terminalfenster.
+2. Erstellen Sie einen Schlüsseltresor, indem Sie den folgenden Befehl ausführen und `<keyVaultName>`, `<resourceGroup>`und `<location>` mit Ihrem gewünschten Schlüsseltresornamen, dem Ressourcengruppennamen und der Azure-Region (z. B. `eastus`) ersetzen:
+
+    ```
+    az keyvault create \
+      --name <key-vault-name> \
+      --resource-group <resource-group-name> \
+      --location <region> \
+      --sku standard \
+      --enable-rbac-authorization false
+    ```
+    Die Kennzeichnung `--enable-rbac-authorization false` stellt sicher, dass das Berechtigungsmodell auf „Tresorzugriffsrichtlinie“ (Standardeinstellung) festgelegt ist.
+
+3. Fügen Sie Ihren Azure KI Services-Schlüssel als geheimen Schlüssel im Schlüsseltresor hinzu. Ersetzen Sie `<keyVaultName>` durch Ihren Schlüsseltresornamen und `<your-key1-value>` durch den Wert des Azure KI Services Key1:
+
+    ```
+    az keyvault secret set \
+    --vault-name <key-vault-name> \
+    --name AI-Services-Key \
+    --value <your-azure-ai-services-key>
+    ```
+
+Sie haben nun einen Schlüsseltresor erstellt und Ihren Azure KI Services-Schlüssel als geheimen Schlüssel namens `AI-Services-Key`gespeichert.
 
 ### Erstellen eines Dienstprinzipals
 
